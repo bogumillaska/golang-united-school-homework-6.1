@@ -84,9 +84,9 @@ func (b *box) SumArea() float64 {
 func (b *box) RemoveAllCircles() error {
 	var foundCircle bool = false
 	for i, shape := range b.shapes {
-		if _, ok := shape.(Circle); ok {
+		if _, ok := shape.(*Circle); ok {
 			foundCircle = true
-			b.shapes = remove(b.shapes, i-1)
+			b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
 		}
 	}
 
@@ -94,8 +94,4 @@ func (b *box) RemoveAllCircles() error {
 		return errors.New("no circles found")
 	}
 	return nil
-}
-
-func remove(slice []Shape, s int) []Shape {
-	return append(slice[:s], slice[s+1:]...)
 }
