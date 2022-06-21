@@ -59,17 +59,15 @@ func TestGetShape(t *testing.T) {
 func Test_RemoveAllCirlces(t *testing.T) {
 	box := NewBox(10)
 	rect := Rectangle{Height: 1, Weight: 3}
-	rect2 := Rectangle{Height: 3, Weight: 3}
 	tr := Triangle{Side: 3}
-	tr2 := Triangle{Side: 7}
 	circle := &Circle{Radius: 3}
 	circle2 := &Circle{Radius: 4}
 
 	box.AddShape(circle)
 	box.AddShape(rect)
-	box.AddShape(rect2)
+	box.AddShape(&Circle{Radius: 1})
 	box.AddShape(tr)
-	box.AddShape(tr2)
+	box.AddShape(&Circle{Radius: 2})
 	box.AddShape(circle2)
 
 	err := box.RemoveAllCircles()
@@ -77,8 +75,8 @@ func Test_RemoveAllCirlces(t *testing.T) {
 		t.Error("Should find cirlces")
 	}
 
-	if len(box.shapes) != 4 {
-		t.Errorf("should have %v elements, got %v", 4, len(box.shapes))
+	if len(box.shapes) != 2 {
+		t.Errorf("should have %v elements, got %v", 2, len(box.shapes))
 	}
 
 }

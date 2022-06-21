@@ -86,7 +86,9 @@ func (b *box) RemoveAllCircles() error {
 	for i := 0; i < len(b.shapes); i++ {
 		if _, ok := b.shapes[i].(*Circle); ok {
 			foundCircle = true
-			b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
+			copy(b.shapes[i:], b.shapes[i+1:])
+			b.shapes = b.shapes[:len(b.shapes)-1]
+			i = i - 1
 		}
 	}
 
